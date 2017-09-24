@@ -44,4 +44,4 @@ class StgkStarterApp(Application):
 
 	logger.debug("tk-start app start")
         
-	log.debug("log app start from log")
+	self._log.debug("log app start from log")
