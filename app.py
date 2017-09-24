@@ -12,6 +12,9 @@ import sgtk
 import logging
 from sgtk.platform import Application
 
+handler = logging.FileHandler("/tmp/toolkit.log)
+LogManager().initialize_custom_handler(handler)
+
 loggerScript = sgtk.LogManager.get_logger(__name__)
 loggerApp = sgtk.platform.get_logger(__name__)
 
