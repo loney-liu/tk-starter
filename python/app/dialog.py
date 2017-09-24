@@ -12,6 +12,7 @@ import sgtk
 import os
 import sys
 import threading
+logger = sgtk.LogManager.get_logger(__name__)
 
 # by importing QT from sgtk rather than directly, we ensure that
 # the code will be compatible with both PySide and PyQt.
@@ -29,7 +30,8 @@ def show_dialog(app_instance):
     # we pass the dialog class to this method and leave the actual construction
     # to be carried out by toolkit.
     app_instance.engine.show_dialog("My App...", app_instance, AppDialog)
-    print("Ui started from dialog.py")
+
+    logger.debug("tk-start, dialog: show_diaglog")
     
 
 
@@ -60,5 +62,7 @@ class AppDialog(QtGui.QWidget):
         
         # lastly, set up our very basic UI
         self.ui.context.setText("Current Context: %s" % self._app.context)
+
+        logger.debug("tk-start, AppDiaglog: init")
         
         

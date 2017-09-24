@@ -8,8 +8,10 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights 
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
-
+import sgtk
 from sgtk.platform import Application
+
+logger = sgtk.LogManager.get_logger(__name__)
 
 class StgkStarterApp(Application):
     """
@@ -38,5 +40,6 @@ class StgkStarterApp(Application):
 
         # now register the command with the engine
         self.engine.register_command("My toolkit App...", menu_callback)
-	print("Applicate init from app.py")
+
+	logger.debug("tk-start app start")
         
