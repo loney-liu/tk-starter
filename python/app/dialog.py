@@ -12,12 +12,17 @@ import sgtk
 import os
 import sys
 import threading
-logger = sgtk.LogManager.get_logger(__name__)
 
 # by importing QT from sgtk rather than directly, we ensure that
 # the code will be compatible with both PySide and PyQt.
 from sgtk.platform.qt import QtCore, QtGui
 from .ui.dialog import Ui_Dialog
+
+from sgtk.log import LogManager
+handler = logging.FileHandler("/tmp/toolkit.log")
+LogManager().initialize_custom_handler(handler)
+
+logger = sgtk.LogManager.get_logger(__name__)
 
 def show_dialog(app_instance):
     """
