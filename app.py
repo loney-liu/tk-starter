@@ -25,6 +25,7 @@ class StgkStarterApp(Application):
     the application, handle menu registration etc.
     """
     
+    @sgtk.LogManager.log_timing
     def init_app(self):
         """
         Called as the application is being initialized
@@ -47,5 +48,5 @@ class StgkStarterApp(Application):
         # now register the command with the engine
         self.engine.register_command("My toolkit App...", menu_callback)
 
-	loggerApp.debug("platform: tk-start app start")
-	loggerScript.debug("script: tk-start app start")
+	loggerApp.info("platform: tk-start app start")
+	loggerScript.info("script: tk-start app start")
