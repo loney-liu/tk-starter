@@ -12,7 +12,8 @@ import sgtk
 import logging
 from sgtk.platform import Application
 
-logger = sgtk.LogManager.get_logger(__name__)
+loggerScript = sgtk.LogManager.get_logger(__name__)
+loggerApp = sgtk.platform.get_logger(__name__)
 
 class StgkStarterApp(Application):
     """
@@ -42,6 +43,5 @@ class StgkStarterApp(Application):
         # now register the command with the engine
         self.engine.register_command("My toolkit App...", menu_callback)
 
-	logger.debug("tk-start app start")
-        
-	self._log.debug("log app start from log")
+	loggerApp.debug("platform: tk-start app start")
+	loggerScript.debug("script: tk-start app start")
