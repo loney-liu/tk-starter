@@ -29,6 +29,7 @@ def show_dialog(app_instance):
     # we pass the dialog class to this method and leave the actual construction
     # to be carried out by toolkit.
     app_instance.engine.show_dialog("My App...", app_instance, AppDialog)
+    print("Ui started from dialog.py")
     
 
 

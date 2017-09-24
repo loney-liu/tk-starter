@@ -38,4 +38,5 @@ class StgkStarterApp(Application):
 
         # now register the command with the engine
         self.engine.register_command("My toolkit App...", menu_callback)
+	print("Applicate init from app.py")
         
