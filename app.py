@@ -9,10 +9,16 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 import sgtk
-import logging
 from sgtk.platform import Application
 
-logger = sgtk.LogManager.get_logger(__name__)
+import logging
+from sgtk.log import LogManager
+
+handler = logging.FileHandler("/tmp/toolkit.log")
+LogManager().initialize_custom_handler(handler)
+
+loggerScript = sgtk.LogManager.get_logger(__name__)
+loggerApp = sgtk.platform.get_logger(__name__)
 
 class StgkStarterApp(Application):
     """
@@ -20,6 +26,7 @@ class StgkStarterApp(Application):
     the application, handle menu registration etc.
     """
     
+    @sgtk.LogManager.log_timing
     def init_app(self):
         """
         Called as the application is being initialized
@@ -42,6 +49,5 @@ class StgkStarterApp(Application):
         # now register the command with the engine
         self.engine.register_command("My toolkit App...", menu_callback)
 
-	logger.debug("tk-start app start")
-        
-	log.debug("log app start from log")
+	loggerApp.info("platform: tk-start app start")
+	loggerScript.info("script: tk-start app start")
