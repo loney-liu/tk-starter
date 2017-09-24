@@ -9,8 +9,9 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 import sgtk
-import logging
 from sgtk.platform import Application
+
+import logging
 from sgtk.log import LogManager
 
 handler = logging.FileHandler("/tmp/toolkit.log")

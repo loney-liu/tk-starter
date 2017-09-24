@@ -18,7 +18,9 @@ import threading
 from sgtk.platform.qt import QtCore, QtGui
 from .ui.dialog import Ui_Dialog
 
+import logging
 from sgtk.log import LogManager
+
 handler = logging.FileHandler("/tmp/toolkit.log")
 LogManager().initialize_custom_handler(handler)
 
