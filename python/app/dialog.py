@@ -18,6 +18,7 @@ import threading
 from sgtk.platform.qt import QtCore, QtGui
 from .ui.dialog import Ui_Dialog
 
+
 import logging
 from sgtk.log import LogManager
 
@@ -25,6 +26,10 @@ handler = logging.FileHandler("/tmp/toolkit.log")
 LogManager().initialize_custom_handler(handler)
 
 logger = sgtk.LogManager.get_logger(__name__)
+
+# import the shotgun_menus module from the framework
+playback_label = sgtk.platform.import_framework("tk-framework-qtwidgets", "playback_label")
+sg_data = sgtk.platform.import_framework("tk-framework-shotgunutils", "shotgun_data")
 
 def show_dialog(app_instance):
     """
@@ -38,7 +43,7 @@ def show_dialog(app_instance):
     # to be carried out by toolkit.
     app_instance.engine.show_dialog("My App...", app_instance, AppDialog)
 
-    logger.debug("tk-start, dialog: show_diaglog")
+    logger.info("tk-start, dialog: show_diaglog")
     
 
 
@@ -46,7 +51,7 @@ class AppDialog(QtGui.QWidget):
     """
     Main application dialog window
     """
-    
+
     def __init__(self):
         """
         Constructor
@@ -70,6 +75,24 @@ class AppDialog(QtGui.QWidget):
         # lastly, set up our very basic UI
         self.ui.context.setText("Current Context: %s" % self._app.context)
 
-        logger.debug("tk-start, AppDiaglog: init")
-        
-        
+        logger.info("tk-start, AppDiaglog: init")
+
+        # get Version data from Shotgun. Make sure to include relevant fields.
+        # For a Version, this includes:
+        #  - image: so you can pass its URL to the thumbnail downloader
+        #  - sg_uploaded_movie: which ShotgunPlayBackLabel uses to determine if 
+        #    the entity is playable
+        fields = ['id', 'code', 'image', 'sg_uploaded_movie']
+        #filters = [['image','is_not', None]]
+        filters = [['id','is', 6747]]
+        version_data = self._app.shotgun.find_one('Version', filters, fields)
+	
+        logger.info(version_data)
+
+        # download the thumbnail for the version
+        # TODO: this should be done asynchronously, ShotgunDataRetriever supports this.
+        self.__sg_data = sg_data.ShotgunDataRetriever(self)
+        self.__sg_data.start()
+        thumbnail_path = self.__sg_data.download_thumbnail(version_data['image'], self._app)
+	
+	logger.info(thumbnail_path)
