@@ -6,6 +6,10 @@ Install App
 
 ./tank install_app project tk-desktop https://github.com/loney-liu/tk-starter.git
 
+Update github release
+
 Update App
 
 ./tank updates project tk-desktop tk-starter
+
+
