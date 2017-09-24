@@ -9,6 +9,7 @@
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
 import sgtk
+import logging
 from sgtk.platform import Application
 
 logger = sgtk.LogManager.get_logger(__name__)
@@ -43,3 +44,4 @@ class StgkStarterApp(Application):
 
 	logger.debug("tk-start app start")
         
+	log.debug("log app start from log")
